@@ -6,17 +6,17 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:24:51 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/03 13:02:35 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/03 14:06:50 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
-static void	init_game_struct(t_game *game)
-{
-	// ft_memset(game, 0, sizeof(t_game));
-	// ft_calloc(1, sizeof(t_game)) 을 main에서 사용하는 것을 권장
-}
+// static void	init_game_struct(t_game *game)
+// {
+// 	// ft_memset(game, 0, sizeof(t_game));
+// 	// ft_calloc(1, sizeof(t_game)) 을 main에서 사용하는 것을 권장
+// }
 
 static int exit_game(t_game *game)
 {

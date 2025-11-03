@@ -6,7 +6,7 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:59:38 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/03 12:59:40 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:55:15 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,19 @@ void	free_game_config(t_map_config *config)
 	}
 	if (config->map_grid)
 		free_split(config->map_grid); // 2차원 배열 해제 유틸 필요
+}
+
+void	free_split(char **split_arr)
+{
+	int	i;
+
+	if (!split_arr)
+		return ;
+	i = 0;
+	while (split_arr[i])
+	{
+		free(split_arr[i]);
+		i++;
+	}
+	free(split_arr);
 }

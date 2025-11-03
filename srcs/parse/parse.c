@@ -6,56 +6,12 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:23:54 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/03 13:25:02 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/03 15:29:37 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*parse_elements(int fd, t_game *game);
-int		parse_map_grid(int fd, char *first_map_line, t_game *game);
-int		validate_config(t_game *game);
-void	init_config(t_map_config *config);
-
-int	parse(char *filename, t_game *game)
-{
-	int		fd;
-	char	*first_map_line;
-
-	if (ft_strnrcmp(filename, ".cub", 4) != 0
-		|| (filename[ft_strlen(filename) - 5] == '/'))
-		return (ft_perror("Error: Invalid file extension (must be .cub)\n"));
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (ft_perror("Error: Cannot open file\n"));
-	init_config(&game->config);
-	// 4. (Pass 1) 요소 파싱 (텍스처, 색상)
-	// 맵의 첫 번째 줄을 반환받습니다.
-	first_map_line = parse_elements(fd, game);
-	if (!first_map_line)
-	{
-		close(fd);
-		return (ft_perror("Error: Map data not found or invalid element\n"));
-	}
-
-	// 5. (Pass 2) 맵 그리드 파싱
-	if (parse_map_grid(fd, first_map_line, game) != 0)
-	{
-		close(fd);
-		return (1); // 오류 메시지는 내부 함수가 출력
-	}
-	close(fd);
-
-	// 6. (Pass 3) 최종 유효성 검사
-	if (validate_config(game) != 0)
-		return (1); // 오류 메시지는 내부 함수가 출력
-
-	return (0); // 파싱 성공
-}
-
-/*
- * game->config 구조체를 안전한 초기값으로 설정합니다.
- */
 void	init_config(t_map_config *config)
 {
 	int	i;
@@ -66,7 +22,7 @@ void	init_config(t_map_config *config)
 		config->tex_paths[i] = NULL;
 		i++;
 	}
-	config->floor_color = -1; // -1을 "설정되지 않음"으로 사용
+	config->floor_color = -1;
 	config->ceiling_color = -1;
 	config->map_grid = NULL;
 	config->map_width = 0;
@@ -74,4 +30,32 @@ void	init_config(t_map_config *config)
 	config->start_dir = '\0';
 	config->start_pos.x = 0;
 	config->start_pos.y = 0;
+}
+
+int	parse(char *filename, t_game *game)
+{
+	int		fd;
+	char	*first_map_line;
+
+	if (ft_strncmp(ft_strrchr(filename, '.'), ".cub", 4))
+		return (ft_perror("Error: Invalid file extension (must be .cub)\n"));
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (ft_perror("Error: Cannot open file\n"));
+	init_config(&game->config);
+	first_map_line = parse_elements(fd, game);
+	if (!first_map_line)
+	{
+		close(fd);
+		return (ft_perror("Error: Map data not found or invalid element\n"));
+	}
+	if (parse_map_grid(fd, first_map_line, game) != 0)
+	{
+		close(fd);
+		return (1);
+	}
+	close(fd);
+	if (validate_config(game) != 0)
+		return (1);
+	return (0);
 }
