@@ -114,7 +114,10 @@ int	is_map_line(char *line);
 /* -----------raycast----------- */
 void	init_ray_data(t_ray *ray);
 void	init_player_state(t_player *player, t_map_config *config);
+void	draw_textured_walls(t_game *game, int x, int draw_start, int draw_end);
 void	raycasting(t_game *game);
+void	player_movement(t_game *game, double frame_time);
+void	game_loop(void *param);
 
 /* ------------common----------- */
 int		ft_perror(char *msg);

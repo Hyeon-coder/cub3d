@@ -1,58 +1,5 @@
 #include "cub3d.h"
 
-void	init_ray_data(t_ray *ray)
-{
-	ray->dir.x = 0;
-	ray->dir.y = 0;
-	ray->side_dist.x = 0;
-	ray->side_dist.y = 0;
-	ray->delta_dist.x = 0;
-	ray->delta_dist.y = 0;
-	ray->step_x = 0;
-	ray->step_y = 0;
-	ray->map_x = 0;
-	ray->map_y = 0;
-	ray->perp_wall_dist = 0;
-	ray->hit = 0;
-	ray->side = 0;
-	ray->tex_x = 0;
-	ray->tex_y = 0;
-}
-
-void	init_player_state(t_player *player, t_map_config *config)
-{
-	player->pos.x = config->start_pos.x;
-	player->pos.y = config->start_pos.y;
-	if (config->start_dir == 'E')
-	{
-		player->dir.x = 1;
-		player->dir.y = 0;
-		player->plane.x = 0;
-		player->plane.y = 0.66;
-	}
-	else if (config->start_dir == 'W')
-	{
-		player->dir.x = -1;
-        	player->dir.y = 0;
-       		player->plane.x = 0;
-        	player->plane.y = -0.66;
-	}
-	else if (config->start_dir == 'S')
-	{
-		player->dir.x = 0;
-		player->dir.y = 1;
-		player->plane.x = -0.66;
-		player->plane.y = 0;
-	}
-	else if (config->start_dir == 'N')
-	{
-		player->dir.x = 0;
-		player->dir.y = -1;
-		player->plane.x = 0.66;
-		player->plane.y = 0;
-	}
-}
-
 static void	setup_ray(t_ray *ray, t_player *player, int x)
 {
 	double	camera_x;
@@ -148,70 +95,6 @@ static void	get_texture_x(t_game *game, t_ray *ray, t_player *player)
 		ray->tex_x = tex_width - ray->tex_x - 1;
 	if (ray->side == 1 && ray->dir.y < 0)
 		ray->tex_x = tex_width - ray->tex_x -1;
-}
-static int	get_texture_color(mlx_texture_t *texture, int x, int y)
-{
-	int index;
-	int r;
-	int g;
-	int b;
-	int a;
-
-	if (x < 0 || x >= (int)texture->width || y < 0 || y >= (int)texture->height)
-        	return (0xFF000000);
-	index = (y * texture->width + x) * texture->bytes_per_pixel;
-	r = texture->pixels[index];
-	g = texture->pixels[index + 1];
-	b = texture->pixels[index + 2];
-	a = texture->pixels[index + 3];
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-
-static void	draw_textured_walls(t_game *game, int x, int draw_start, int draw_end)
-{
-	int	y;
-	int	color;
-	int	line_height;
-	double	step;
-	double	tex_pos;
-	mlx_texture_t	*texture;
-
-	if (game->ray.side == 0)
-	{
-		if (game->ray.dir.x > 0)
-			texture = game->textures[EAST];
-		else
-			texture = game->textures[WEST];
-	}
-	else
-	{
-		if (game->ray.dir.y > 0)
-			texture = game->textures[SOUTH];
-		else
-			texture = game->textures[NORTH];
-	}
-	line_height = draw_end - draw_start;
-	step = (double)texture->height / (double)line_height;
-	tex_pos = (draw_start - WIN_HEIGHT / 2 + line_height / 2) * step;
-	y = 0;
-	while (y < draw_start)
-	{
-		mlx_put_pixel(game->screen_buffer, x, y, game->config.ceiling_color);
-		y++;
-	}
-	while (y < draw_end)
-	{
-		game->ray.tex_y = (int)tex_pos % texture->height;
-		tex_pos += step;
-		color = get_texture_color(texture, game->ray.tex_x, game->ray.tex_y);
-		mlx_put_pixel(game->screen_buffer, x, y, color);
-		y++;
-	}
-	while (y < WIN_HEIGHT)
-	{
-		mlx_put_pixel(game->screen_buffer, x, y, game->config.floor_color);
-		y++;
-	}
 }
 
 void	raycasting(t_game *game)

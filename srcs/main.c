@@ -89,9 +89,7 @@ int	main(int ac, char **av)
     		return (exit_game(&game));
 	init_player_state(&game.player, &game.config);
 	init_ray_data(&game.ray);
-	mlx_loop_hook(game.mlx_ptr, (void *)raycasting, &game);
-	// mlx_key_hook(game.mlx_ptr, &key_handler, &game);
-	// mlx_close_hook(game.mlx_ptr, &close_handler, &game);
+	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_loop(game.mlx_ptr);
 	return (exit_game(&game));
 }
