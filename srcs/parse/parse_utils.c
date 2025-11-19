@@ -6,7 +6,7 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:54:47 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/19 14:44:24 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:26:09 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ int	is_map_line(char *line)
 	if (line[i] == '1' || line[i] == '0')
 		return (1);
 	return (0);
+}
+
+int	is_empty_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	return (line[i] == '\n' || line[i] == '\0');
 }
 
 int	find_player(t_map_config *config)

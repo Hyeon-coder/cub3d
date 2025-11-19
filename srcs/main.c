@@ -6,7 +6,7 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:24:51 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/19 14:17:15 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/19 16:09:40 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	exit_game(t_game *game)
 		mlx_terminate(game->mlx_ptr);
 	return (1);
 }
+
 static int	load_textures(t_game *game)
 {
 	game->textures[NORTH] = mlx_load_png(game->config.tex_paths[NORTH]);
@@ -59,36 +60,35 @@ static int	validate_texture_sizes(t_game *game)
 		|| game->textures[EAST]->height != height
 		|| game->textures[WEST]->width != width
 		|| game->textures[WEST]->height != height)
-	{
 		return (ft_perror("Error: All textures must be the same size\n"));
-	}
 	return (0);
 }
+
+static int	init_graphics(t_game *game)
+{
+	game->mlx_ptr = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3D", false);
+	if (!game->mlx_ptr)
+		return (ft_perror("Error: MLX initialization failed\n"));
+	game->screen_buffer = mlx_new_image(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	if (!game->screen_buffer)
+		return (ft_perror("Error: Failed to create screen buffer\n"));
+	if (load_textures(game) != 0)
+		return (1);
+	if (validate_texture_sizes(game) != 0)
+		return (1);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_game	game;
 
 	if (ac != 2)
-		return (ft_perror("Error: Invalid arguments\nUsage: ./cub3d <map.cub>\n"));
+		return (ft_perror(ERRMSG_NOT_ENOUGH_ARG));
 	ft_memset(&game, 0, sizeof(t_game));
 	if (parse(av[1], &game) != 0)
 		return (exit_game(&game));
-	// debug_print_game_struct(&game);	// for DEBUG
-	game.mlx_ptr = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3D", false);
-	if (!game.mlx_ptr)
-	{
-		ft_perror("Error: MLX initialization failed\n");
-		return (exit_game(&game));
-	}
-	game.screen_buffer = mlx_new_image(game.mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
-	if (!game.screen_buffer)
-	{
-		ft_perror("Error: Failed to create screen buffer\n");
-		return (exit_game(&game));
-	}
-	if (load_textures(&game) != 0)
-		return (exit_game(&game));
-	if (validate_texture_sizes(&game) != 0)
+	if (init_graphics(&game) != 0)
 		return (exit_game(&game));
 	init_player_state(&game.player, &game.config);
 	init_ray_data(&game.ray);
