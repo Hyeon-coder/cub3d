@@ -6,7 +6,7 @@
 #    By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/22 12:15:10 by juhyeonl          #+#    #+#              #
-#    Updated: 2025/11/04 21:18:24 by juhyeonl         ###   ########.fr        #
+#    Updated: 2025/11/19 14:16:01 by juhyeonl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ MLX_LIB = $(MLX_BUILD_DIR)/libmlx42.a
 # --- 인클루드 및 라이브러리 플래그 ---
 INCLUDES = -I$(INCS_DIR) -I$(LIBFT_DIR)/includes -I$(MLX_DIR)/include
 # --- *** FIX: Added -lXpm to force linking *** ---
-LIBS = -L$(LIBFT_DIR) -lft -L$(MLX_BUILD_DIR) -lmlx42 -ldl -lglfw -lpthread -lm -lXpm
+LIBS = -L$(LIBFT_DIR) -lft -L$(MLX_BUILD_DIR) -lmlx42 -ldl -lglfw -lpthread -lm
 
 # --- 소스 파일 ---
 SRCS_FILES = $(shell find $(SRCS_DIR) -name "*.c")
@@ -68,11 +68,6 @@ $(MLX_LIB):
 		echo "Downloading MLX42..."; \
 		git clone --quiet $(MLX_URL) $(MLX_DIR); \
 	fi
-<<<<<<< HEAD
-	@echo "Building MLX42..."
-	@cmake -S $(MLX_DIR) -B $(MLX_BUILD_DIR)
-	@$(MAKE) --no-print-directory --quiet -C $(MLX_BUILD_DIR) -j4
-=======
 	@if [ ! -f "$(MLX_LIB)" ]; then \
 		echo "Building MLX42..."; \
 		cmake -S $(MLX_DIR) -B $(MLX_BUILD_DIR); \
@@ -80,7 +75,6 @@ $(MLX_LIB):
 	else \
 		@echo "MLX42 is already built."; \
 	fi
->>>>>>> jin
 
 # --- 오브젝트 파일 빌드 규칙 ---
 $(OBJS_DIR):

@@ -6,7 +6,7 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 09:36:06 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/05 09:37:23 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:16:58 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,8 @@ static void	debug_print_ray(t_ray *ray)
 	debug_print_vector("방향 (dir)", ray->dir);
 	debug_print_vector("Side Dist", ray->side_dist);
 	debug_print_vector("Delta Dist", ray->delta_dist);
-<<<<<<< HEAD
-	debug_print_vector("Step", ray->step);
-=======
 	printf("      Step      : (step_x=%d, step_y=%d)\n", \
 				ray->step_x, ray->step_y);
->>>>>>> jin
 	printf("      Map Coords      : (map_x=%d, map_y=%d)\n", \
 				ray->map_x, ray->map_y);
 	printf("      Perp Wall Dist  : %.3f\n", ray->perp_wall_dist);
@@ -106,8 +102,4 @@ void	debug_print_game_struct(t_game *game)
 	debug_print_player(&game->player);
 	debug_print_ray(&game->ray);
 	printf("\n--- END DEBUG: t_game 구조체 덤프 ---\n\n");
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> jin

@@ -6,7 +6,7 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 23:06:44 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/05 09:37:41 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:44:12 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 768
 # define MINIMAP_SCALE 0.2
+# define ERRMSG_FINDPLAYER "Error: Multiple players found in map\n"
 
 // game->textures[NORTH] == game->textures[0]
 typedef enum e_texture_index
@@ -101,15 +102,15 @@ typedef struct s_flood_fill {
 }	t_flood_fill;
 
 /* ------------parse------------ */
-int	parse(char *filename, t_game *game);
+int		parse(char *filename, t_game *game);
 void	init_config(t_map_config *config);
-int	validate_config(t_game *game);
+int		validate_config(t_game *game);
 char	*parse_elements(int fd, t_game *game);
-int	parse_texture(char **parts, t_game *game);
-int	parse_color(char **parts, t_game *game);
-int	parse_map_grid(int fd, char *first_map_line, t_game *game);
-int	is_map_line(char *line);
-
+int		parse_texture(char **parts, t_game *game);
+int		parse_color(char **parts, t_game *game);
+int		parse_map_grid(int fd, char *first_map_line, t_game *game);
+int		is_map_line(char *line);
+int		find_player(t_map_config *config);
 
 /* -----------raycast----------- */
 void	init_ray_data(t_ray *ray);

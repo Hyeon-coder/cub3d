@@ -6,11 +6,11 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:56:46 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/03 13:57:45 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:21:44 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 static char	*ft_strdup_no_newline(const char *s)
 {
@@ -28,19 +28,12 @@ static char	*ft_strdup_no_newline(const char *s)
 	return (new_str);
 }
 
-static char	**list_to_map_grid(t_list *head, t_map_config *config)
+static void	fill_map_data(t_list *head, char **map, t_map_config *config)
 {
-	char	**map;
 	t_list	*current;
-	int		i;
 	size_t	max_width;
+	int		i;
 
-	config->map_height = ft_lstsize(head);
-	if (config->map_height == 0)
-		return (NULL);
-	map = (char **)malloc(sizeof(char *) * (config->map_height + 1));
-	if (!map)
-		return (NULL);
 	i = 0;
 	max_width = 0;
 	current = head;
@@ -48,15 +41,26 @@ static char	**list_to_map_grid(t_list *head, t_map_config *config)
 	{
 		map[i] = (char *)current->content;
 		current->content = NULL;
-		
 		if (ft_strlen(map[i]) > max_width)
 			max_width = ft_strlen(map[i]);
-		
 		current = current->next;
 		i++;
 	}
 	map[i] = NULL;
 	config->map_width = (int)max_width;
+}
+
+static char	**list_to_map_grid(t_list *head, t_map_config *config)
+{
+	char	**map;
+
+	config->map_height = ft_lstsize(head);
+	if (config->map_height == 0)
+		return (NULL);
+	map = (char **)malloc(sizeof(char *) * (config->map_height + 1));
+	if (!map)
+		return (NULL);
+	fill_map_data(head, map, config);
 	return (map);
 }
 
@@ -69,7 +73,6 @@ int	parse_map_grid(int fd, char *first_map_line, t_game *game)
 	free(first_map_line);
 	if (!head)
 		return (ft_perror("Error: Malloc failed\n"));
-
 	while (1)
 	{
 		line = get_next_line(fd);

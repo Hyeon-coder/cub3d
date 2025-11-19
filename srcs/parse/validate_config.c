@@ -6,7 +6,7 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:58:55 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/03 14:01:21 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:41:04 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,6 @@ static int	validate_elements(t_map_config *config)
 		return (ft_perror("Error: Missing floor color definition\n"));
 	if (config->ceiling_color == -1)
 		return (ft_perror("Error: Missing ceiling color definition\n"));
-	return (0);
-}
-
-static int	find_player(t_map_config *config)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (y < config->map_height)
-	{
-		x = 0;
-		while (config->map_grid[y][x])
-		{
-			if (ft_strchr("NSEW", config->map_grid[y][x]))
-			{
-				if (config->start_dir != '\0')
-					return (ft_perror("Error: Multiple players found in map\n"));
-				config->start_dir = config->map_grid[y][x];
-				config->start_pos.x = (double)x + 0.5;
-				config->start_pos.y = (double)y + 0.5;
-				config->map_grid[y][x] = '0';
-			}
-			x++;
-		}
-		y++;
-	}
-	if (config->start_dir == '\0')
-		return (ft_perror("Error: No player found in map\n"));
 	return (0);
 }
 
@@ -83,7 +54,8 @@ static int	validate_map_chars(t_map_config *config)
 
 static void	dfs_check(t_flood_fill *ff, int y, int x)
 {
-	if (y < 0 || y >= ff->height || x < 0 || x >= (int)ft_strlen(ff->map_copy[y]))
+	if (y < 0 || y >= ff->height || x < 0
+		|| x >= (int)ft_strlen(ff->map_copy[y]))
 	{
 		ff->is_open = 1;
 		return ;
@@ -120,7 +92,8 @@ static int	validate_map_walls(t_game *game)
 		i++;
 	}
 	ff.map_copy[i] = NULL;
-	dfs_check(&ff, (int)game->config.start_pos.y, (int)game->config.start_pos.x);
+	dfs_check(&ff, (int)game->config.start_pos.y,
+		(int)game->config.start_pos.x);
 	free_split(ff.map_copy);
 	if (ff.is_open)
 		return (ft_perror("Error: Map is not surrounded by walls\n"));

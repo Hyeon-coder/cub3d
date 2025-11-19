@@ -6,7 +6,7 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:58:34 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/05 09:31:33 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:34:09 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,13 @@ char	*parse_elements(int fd, t_game *game)
 		free(line);
 		if (!parts)
 			return (NULL);
-		if (ft_strncmp(parts[0], "NO", 3) == 0 || ft_strncmp(parts[0], "SO", 3) == 0 || \
-			ft_strncmp(parts[0], "WE", 3) == 0 || ft_strncmp(parts[0], "EA", 3) == 0)
+		if (ft_strncmp(parts[0], "NO", 3) == 0
+			|| ft_strncmp(parts[0], "SO", 3) == 0
+			|| ft_strncmp(parts[0], "WE", 3) == 0
+			|| ft_strncmp(parts[0], "EA", 3) == 0)
 			parse_result = parse_texture(parts, game);
-		else if (ft_strncmp(parts[0], "F", 2) == 0 || ft_strncmp(parts[0], "C", 2) == 0)
+		else if (ft_strncmp(parts[0], "F", 2) == 0
+			|| ft_strncmp(parts[0], "C", 2) == 0)
 			parse_result = parse_color(parts, game);
 		else
 			parse_result = 1;
@@ -67,7 +70,6 @@ int	parse_texture(char **parts, t_game *game)
 		idx = EAST;
 	if (game->config.tex_paths[idx] != NULL)
 		return (ft_perror("Error: Duplicate texture definition\n"));
-	// game->config.tex_paths[idx] = ft_strdup(parts[1]);
 	game->config.tex_paths[idx] = ft_strtrim(parts[1], " \t\n");
 	if (!game->config.tex_paths[idx])
 		return (ft_perror("Error: Malloc failed\n"));
@@ -83,7 +85,8 @@ int	parse_color(char **parts, t_game *game)
 	if (!parts[1] || parts[2])
 		return (ft_perror("Error: Invalid color format\n"));
 	rgb_values = ft_split(parts[1], ',');
-	if (!rgb_values || !rgb_values[0] || !rgb_values[1] || !rgb_values[2] || rgb_values[3])
+	if (!rgb_values || !rgb_values[0] || !rgb_values[1]
+		|| !rgb_values[2] || rgb_values[3])
 	{
 		free_split(rgb_values);
 		return (ft_perror("Error: Invalid RGB format\n"));
@@ -92,8 +95,8 @@ int	parse_color(char **parts, t_game *game)
 	rgb[1] = ft_atoi(rgb_values[1]);
 	rgb[2] = ft_atoi(rgb_values[2]);
 	free_split(rgb_values);
-	if (rgb[0] < 0 || rgb[0] > 255 || rgb[1] < 0 || rgb[1] > 255 || \
-		rgb[2] < 0 || rgb[2] > 255)
+	if (rgb[0] < 0 || rgb[0] > 255 || rgb[1] < 0 || rgb[1] > 255
+		|| rgb[2] < 0 || rgb[2] > 255)
 		return (ft_perror("Error: RGB values out of range (0-255)\n"));
 	color_int = (rgb[0] << 24) | (rgb[1] << 16) | (rgb[2] << 8) | 255;
 	if (ft_strncmp(parts[0], "F", 2) == 0)

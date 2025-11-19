@@ -6,7 +6,7 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:24:51 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/05 09:40:40 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:17:15 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 static int exit_game(t_game *game)
 {
 	free_game_config(&game->config);
-<<<<<<< HEAD
-=======
 	if (game->textures[NORTH])
        		mlx_delete_texture(game->textures[NORTH]);
 	if (game->textures[SOUTH])
@@ -29,7 +27,6 @@ static int exit_game(t_game *game)
         	mlx_delete_image(game->mlx_ptr, game->screen_buffer);
 	if (game->mlx_ptr)
       		mlx_terminate(game->mlx_ptr);
->>>>>>> jin
 	return (1);
 }
 static int	load_textures(t_game *game)
@@ -73,10 +70,6 @@ int	main(int ac, char **av)
 	ft_memset(&game, 0, sizeof(t_game));
 	if (parse(av[1], &game) != 0)
 		return (exit_game(&game));
-<<<<<<< HEAD
-	debug_print_game_struct(&game);	// for DEBUG
-
-=======
 	// debug_print_game_struct(&game);	// for DEBUG
 	game.mlx_ptr = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3D", false);
 	if (!game.mlx_ptr)
@@ -98,6 +91,5 @@ int	main(int ac, char **av)
 	init_ray_data(&game.ray);
 	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_loop(game.mlx_ptr);
->>>>>>> jin
 	return (exit_game(&game));
 }
