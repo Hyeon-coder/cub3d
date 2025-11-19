@@ -6,7 +6,7 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 23:06:44 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/19 15:36:25 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/19 16:11:54 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ typedef struct s_flood_fill
 }					t_flood_fill;
 
 /* ------------parse------------ */
-<<<<<<< HEAD
 int					parse(char *filename, t_game *game);
 void				init_config(t_map_config *config);
 int					validate_config(t_game *game);
@@ -117,18 +116,7 @@ int					parse_color(char **parts, t_game *game);
 int					parse_map_grid(int fd, char *first_map_line, t_game *game);
 int					is_map_line(char *line);
 int					find_player(t_map_config *config);
-=======
-int		parse(char *filename, t_game *game);
-void	init_config(t_map_config *config);
-int		validate_config(t_game *game);
-char	*parse_elements(int fd, t_game *game);
-int		parse_texture(char **parts, t_game *game);
-int		parse_color(char **parts, t_game *game);
-int		parse_map_grid(int fd, char *first_map_line, t_game *game);
-int		is_map_line(char *line);
-int		find_player(t_map_config *config);
-int		is_empty_line(char *line);
->>>>>>> 82f4130 (norminette parse, main, utils done)
+int					is_empty_line(char *line);
 
 /* -----------raycast----------- */
 void				init_ray_data(t_ray *ray);
