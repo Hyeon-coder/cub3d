@@ -37,7 +37,7 @@ void	free_game_config(t_map_config *config)
 
 void	free_split(char **split_arr)
 {
-	int i;
+	int	i;
 
 	if (!split_arr)
 		return ;

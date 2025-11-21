@@ -30,6 +30,7 @@ void	init_ray_data(t_ray *ray)
 	ray->tex_x = 0;
 	ray->tex_y = 0;
 }
+
 static void	set_ew_dir(t_player *player, int sign)
 {
 	player->dir.x = sign;
@@ -71,7 +72,7 @@ void	rotate_view(t_game *game, double rotation_speed, int dir)
 	game->player.dir.x = game->player.dir.x * cos(angle)
 		- game->player.dir.y * sin(angle);
 	game->player.dir.y = old_dir_x * sin(angle)
-		+  game->player.dir.y * cos(angle);
+		+ game->player.dir.y * cos(angle);
 	old_plane_x = game->player.plane.x;
 	game->player.plane.x = game->player.plane.x * cos(angle)
 		- game->player.plane.y * sin(angle);

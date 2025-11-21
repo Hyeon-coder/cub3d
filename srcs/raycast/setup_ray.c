@@ -56,5 +56,5 @@ void	setup_ray(t_ray *ray, t_player *player, int x)
 		ray->delta_dist.y = 1e30;
 	else
 		ray->delta_dist.y = fabs(1 / ray->dir.y);
-	setup_xy_step(ray, player);	
+	setup_xy_step(ray, player);
 }
