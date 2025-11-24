@@ -6,7 +6,7 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 23:06:44 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/19 16:11:54 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/24 13:08:18 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ void				raycasting(t_game *game);
 void				player_movement(t_game *game, double frame_time);
 void				game_loop(void *param);
 void				rotate_view(t_game *game, double rotation_speed, int dir);
-void				setup_ray(t_game *game, t_ray *ray, t_player *player, int x);
+void				setup_ray(t_game *game, t_ray *ray, t_player *player,
+						int x);
 
 /* ------------common----------- */
 int					ft_perror(char *msg);

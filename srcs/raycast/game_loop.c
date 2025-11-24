@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunjkim <hyunjkim@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:28:29 by hyunjkim          #+#    #+#             */
-/*   Updated: 2025/11/19 15:28:30 by hyunjkim         ###   ########.fr       */
+/*   Updated: 2025/11/24 13:14:00 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static int	check_and_resize(t_game *game)
 		game->win_width = cur_width;
 		game->win_height = cur_height;
 		mlx_delete_image(game->mlx_ptr, game->screen_buffer);
-		game->screen_buffer = mlx_new_image(game->mlx_ptr, cur_width, cur_height);
+		game->screen_buffer = mlx_new_image(game->mlx_ptr, cur_width,
+				cur_height);
 		if (!game->screen_buffer)
 			return (1);
 		if (mlx_image_to_window(game->mlx_ptr, game->screen_buffer, 0, 0) < 0)

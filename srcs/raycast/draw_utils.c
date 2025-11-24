@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunjkim <hyunjkim@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:28:21 by hyunjkim          #+#    #+#             */
-/*   Updated: 2025/11/19 15:28:23 by hyunjkim         ###   ########.fr       */
+/*   Updated: 2025/11/24 13:13:04 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int	get_texture_color(mlx_texture_t *texture, int x, int y)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	draw_textured_column(t_game *game, t_vector *param, mlx_texture_t *texture, int draw_end)
+void	draw_textured_column(t_game *game, t_vector *param,
+	mlx_texture_t *texture, int draw_end)
 {
 	int	y;
 	int	color;
@@ -45,4 +46,3 @@ void	draw_textured_column(t_game *game, t_vector *param, mlx_texture_t *texture,
 		y++;
 	}
 }
-

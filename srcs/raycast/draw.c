@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunjkim <hyunjkim@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:28:21 by hyunjkim          #+#    #+#             */
-/*   Updated: 2025/11/19 15:28:23 by hyunjkim         ###   ########.fr       */
+/*   Updated: 2025/11/24 13:09:55 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_vector	init_texture_param(t_game *game, mlx_texture_t *texture, int draw_start, int draw_end)
+static t_vector	init_texture_param(t_game *game, mlx_texture_t *texture,
+		int draw_start, int draw_end)
 {
 	t_vector	param;
 	int			line_height;
-	
+
 	line_height = draw_end - draw_start;
 	param.x = (double)texture->height / (double)line_height;
 	param.y = (draw_start - game->win_height / 2 + line_height / 2) * param.x;
@@ -68,7 +69,7 @@ static void	draw_floor(t_game *game, int x, int draw_end)
 void	draw_all(t_game *game, int x, int draw_start, int draw_end)
 {
 	mlx_texture_t	*texture;
-	t_vector	param;
+	t_vector		param;
 
 	texture = select_wall_texture(game);
 	param = init_texture_param(game, texture, draw_start, draw_end);

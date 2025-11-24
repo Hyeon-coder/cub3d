@@ -6,7 +6,7 @@
 /*   By: juhyeonl <juhyeonl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:58:34 by juhyeonl          #+#    #+#             */
-/*   Updated: 2025/11/19 15:26:28 by juhyeonl         ###   ########.fr       */
+/*   Updated: 2025/11/24 13:08:37 by juhyeonl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	process_config_line(char *line, t_game *game)
 	parts = ft_split(line, ' ');
 	if (!parts)
 		return (1);
-		
 	if (!parts[0])
 		res = 0;
 	else if (!ft_strncmp(parts[0], "NO", 3) || !ft_strncmp(parts[0], "SO", 3)
